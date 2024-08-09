@@ -1,0 +1,118 @@
+﻿@using PagedList.Mvc
+@model  PagedList.IPagedList<WebApplication1.Models.category>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_1.cshtml";
+}
+
+@if (TempData["msg"] != null)
+{
+    <div class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Success!</strong> @TempData["msg"]
+    </div>
+}
+
+
+<div class="row">
+    <div class="col-lg-10 col-md-10 col-sm-10">
+        @if (TempData["total"] == null)
+        {
+        <h3>
+            Total Bill: 0 BDT
+        </h3> 
+        }
+        else
+        {
+            <h3> Total Bill: @TempData["total"] BDT</h3>
+        }
+
+
+
+    </div>
+
+    <div class="col-lg-2 col-md-2 col-sm-2">
+        <h3 style="color:#808080; font-family:'Arial Rounded MT';text-align:center"> <span class="btn btn-info"> @Html.ActionLink("Checkout", "Checkout", "User")</h3>
+    </div>
+
+</div>
+
+<style>
+
+    .cimg {
+        -webkit-transform 5s;
+        transition: transform 5s;
+    }
+
+        .cimg:hover {
+            -webkit-transform: rotatez(0deg);
+        }
+</style>
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>View  Category</title>
+    <link href="~/Content/paginition.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <div style="height:1150px; ">
+        <div class="row">
+            <div class="col-lg-12" style="height:100px; border:1px solid #ccc; display: flex; justify-content: center; align-items: center;">
+                <img src="~/Logo_Image/1691733835119.png" style="max-width: 100%; max-height: 160%; height: auto;" alt="Logo">
+            </div>
+
+            
+
+        </div>
+
+
+
+        <div class="row" style="margin-bottom:40px">
+
+            <div class="col-lg-2 col-md-2">
+                
+            </div>
+
+            <div class="col-lg-8 col-md-8">
+                <div class="row">
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <div class="col-lg-4 col-md-4" style="height:200px;margin-top:100px">
+
+                                <img class="img img-responsive cimg" src="@Url.Content(item.cat_img)" style=" height:100%;width:100% ;border-radius:50px 50px 50px 50px" />
+                                <h4 style="color:#808080; font-family:'Arial Rounded MT';text-align:center"> @Html.ActionLink(@item.cat_name, "Ads", new { id = @item.cat_id })</h4>
+
+                            </div>
+
+                        }
+                    }
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <div id="container" style="margin-left: 20px">
+        <p></p>
+        <p></p>
+        <div class="pagination" style="margin-left: 400px">
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+            of @Model.PageCount   @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+        </div>
+    </div>
+</body>
+</html>
+
+
+

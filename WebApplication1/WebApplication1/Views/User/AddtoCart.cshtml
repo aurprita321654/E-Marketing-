@@ -1,0 +1,41 @@
+﻿@model WebApplication1.Models.product
+@{
+    ViewBag.Title = "AddtoCart";
+}
+
+<br />
+<br />
+<br />
+@using (Html.BeginForm())
+{
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-lg-4 col-md-4 col-sm-4">
+
+            <img style="min-height:300px; width:300px;" src="@Url.Content(Model.pro_img)"/>
+        </div>
+
+
+
+        <div class="col-lg-8 col-md-8 col-sm-8">
+
+            <h2>Name: @Model.pro_name</h2>
+            <h3>Price: @Model.pro_price BDT</h3>
+            <h5>Description: @Model.pro_descrip</h5>
+
+            <input type="number" name="qty" value="1" id="qty" min="1" max="5" />
+
+            <input type="submit" value="submit" class="btn btn-default" />
+
+        </div>
+
+    </div>
+
+
+</div>
+
+}
+
